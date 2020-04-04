@@ -1,0 +1,81 @@
+<%- include("_header") -%>
+
+
+<h1>List of questions (<%= model.length %>)</h1><br>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="/faq/Web development">Web development</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/faq/Big Data">Big Data</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/faq/Cybersecurite">Cybersecurite</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/faq/IA">IA</a>
+    </li>
+  </ul>
+  <form class="form-inline" action="/search" method="POST">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="key">
+    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search" name ="send"/>
+  </form>
+</nav>
+
+<% for (const Faq of model) { %>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-dark"><%= Faq.question %> <span class="badge badge-primary badge-pill"><%= Faq.author %></span></li>
+    <li class="list-group-item list-group-item-light"><%= Faq.reponse %> <span class="badge badge-danger badge-pill">original</span></li>
+    <% for (const Answers of model_answers) { %> 
+      <% if(Answers.faqId == Faq.faqId) { %>
+        <li class="list-group-item list-group-item-light"><%= Answers.reponse %> 
+          <span class="badge badge-dark badge-pill"><%= Answers.nom_auteur %></span>
+          <span class="badge badge-dark badge-pill">
+            <form action="/like_ans/<%= Answers.faqId %>" method="POST">
+              <button type="submit" class="btn btn-primary">
+                Click here to vote <span class="badge badge-light"><%= Answers.votes %></span>
+              </button>
+            </form>
+          </span>
+        </li>
+      <% } %>
+    <% } %>   
+    <li class="list-group-item list-group-item-warning">Domaine : <%= Faq.domaine %></li>
+  </ul>  
+  <div class="col-sm-7">
+    <div class="row mt-3">
+      <!--<form action="/upgrade/<%= Faq.faqId %>" method="POST">
+        <input type="submit" name="upgrade" value="Add another answer" class="btn btn-default btn-success" />
+      </form>-->
+      <a class="btn btn-default btn-success" href="/upgrade/<%= Faq.faqId %>">Add another answer</a>
+      <form action="/delete/<%= Faq.faqId %>" method="POST">
+        <input type="submit" name="delete" value="Delete" class="btn btn-default btn-danger" />
+      </form>
+      <form action="/like/<%= Faq.faqId %>" method="POST">
+        <button type="submit" class="btn btn-primary">
+          Like <span class="badge badge-light"><%= Faq.rating %></span>
+        </button>
+      </form>
+    </div>
+  </div>  
+  <br>
+<% } %>
+
+
+<form action="/faq" method="POST">
+  <div class="form-horizontal">
+
+    <%- include("_formfaq") -%>
+
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2"></label>
+      <div class="col-sm-10">
+        <input type="submit" value="Submit" name="add" class="btn btn-default btn-success" />
+      </div>
+    </div>
+  </div>
+</form>
+
+<%- include("_footer") -%>

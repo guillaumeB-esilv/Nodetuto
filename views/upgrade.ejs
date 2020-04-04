@@ -1,0 +1,29 @@
+<%- include("_header") -%>
+
+<form action="/upgrade/<%= model.faqId %>" method="post">
+  <div class="form-group row">
+    <label class="col-form-label col-sm-2" for="question">Question</label>
+    <div class="col-sm-7">
+      <input class="form-control" name="question" value="<%= model.question %>" />
+    </div>
+  </div>
+  
+  <div class="form-group row">
+      <label class="col-form-label col-sm-2" for="answer">Proposez votre réponse :</label>
+      <div class="col-sm-7">
+        <input autofocus class="form-control" name="answer" value=" " />
+      </div>   
+  </div>  
+  
+  
+  <div class="form-group row">
+  <div class="col-sm-10">
+    <input type="submit" value="Submit" name="upgrade" class="btn btn-default btn-success" />
+  </div>
+  </div>
+</form>
+
+
+
+
+<%- include("_footer") -%>

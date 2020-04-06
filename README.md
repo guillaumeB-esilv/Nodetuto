@@ -3,7 +3,9 @@
 ## Projet IBO en Web Development Architecture
 
 Back-end FAQ réalisé avec Node.js et Express
+
 Front-end avec Bootstrap v4
+
 La base de donnée de la FAQ et des utilisateurs est gérée avec SQLite3
 
 ####  Lors du lancement sur localhost:3000/ :
